@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_dimension_1sp">1sp</dimen>
+    <dimen name="text_dimension_2sp">2sp</dimen>
+    <dimen name="text_dimension_3sp">3sp</dimen>
+    <dimen name="text_dimension_4sp">4sp</dimen>
+    <dimen name="text_dimension_5sp">5sp</dimen>
+    <dimen name="text_dimension_6sp">6sp</dimen>
+    <dimen name="text_dimension_7sp">7sp</dimen>
+    <dimen name="text_dimension_8sp">8sp</dimen>
+    <dimen name="text_dimension_9sp">9sp</dimen>
+    <dimen name="text_dimension_10sp">10sp</dimen>
+    <dimen name="text_dimension_11sp">11sp</dimen>
+    <dimen name="text_dimension_12sp">12sp</dimen>
+    <dimen name="text_dimension_13sp">13sp</dimen>
+    <dimen name="text_dimension_14sp">14sp</dimen>
+    <dimen name="text_dimension_15sp">15sp</dimen>
+    <dimen name="text_dimension_16sp">16sp</dimen>
+    <dimen name="text_dimension_17sp">17sp</dimen>
+    <dimen name="text_dimension_18sp">18sp</dimen>
+    <dimen name="text_dimension_19sp">19sp</dimen>
+    <dimen name="text_dimension_20sp">20sp</dimen>
+    <dimen name="text_dimension_21sp">21sp</dimen>
+    <dimen name="text_dimension_22sp">22sp</dimen>
+    <dimen name="text_dimension_23sp">23sp</dimen>
+    <dimen name="text_dimension_24sp">24sp</dimen>
+    <dimen name="text_dimension_25sp">25sp</dimen>
+    <dimen name="text_dimension_26sp">26sp</dimen>
+    <dimen name="text_dimension_27sp">27sp</dimen>
+    <dimen name="text_dimension_28sp">28sp</dimen>
+    <dimen name="text_dimension_29sp">29sp</dimen>
+    <dimen name="text_dimension_30sp">30sp</dimen>
+    <dimen name="text_dimension_40sp">40sp</dimen>
+
+    <dimen name="density_independent_pixel_0dp">0dp</dimen>
+    <dimen name="density_independent_pixel_2dp">2dp</dimen>
+    <dimen name="density_independent_pixel_4dp">4dp</dimen>
+    <dimen name="density_independent_pixel_5dp">5dp</dimen>
+    <dimen name="density_independent_pixel_8dp">8dp</dimen>
+    <dimen name="density_independent_pixel_10dp">10dp</dimen>
+    <dimen name="density_independent_pixel_15dp">15dp</dimen>
+    <dimen name="density_independent_pixel_16dp">16dp</dimen>
+    <dimen name="density_independent_pixel_25dp">25dp</dimen>
+    <dimen name="density_independent_pixel_72dp">72dp</dimen>
+    <dimen name="density_independent_pixel_80dp">80dp</dimen>
+
+    <dimen name="vertical_spacing">10dp</dimen>
+
+</resources>
