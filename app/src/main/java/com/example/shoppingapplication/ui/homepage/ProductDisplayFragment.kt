@@ -1,60 +1,88 @@
 package com.example.shoppingapplication.ui.homepage
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
+import com.example.shoppingapplication.data.productsItem
+import com.example.shoppingapplication.databinding.FragmentLogInBinding
+import com.example.shoppingapplication.databinding.FragmentProductDisplayBinding
+import com.example.shoppingapplication.repository.MyAdapter
+import com.example.shoppingapplication.ui.auth.LogInFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProductDisplayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProductDisplayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentProductDisplayBinding? = null
+    private val binding get() = _binding!!
+
+    // add a variable to hold the loading image view
+    private lateinit var loadingImage: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_display, container, false)
+        _binding = FragmentProductDisplayBinding.inflate(inflater, container, false)
+        getDataFromFirebase()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProductDisplayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProductDisplayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    /**
+     * This method will get the data from the firebase database and set it to the
+     * recycler view.
+     */
+    private fun getDataFromFirebase() {
+        // Get a reference to your Firebase database
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("products")
+
+        // Create a list to hold your model objects
+        val data = mutableListOf<productsItem>()
+
+        // Set up the RecyclerView and adapter
+        val recyclerView = binding.rvToShowItems
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = MyAdapter(data as ArrayList<productsItem>)
+        recyclerView.adapter = adapter
+
+        // Query the Firebase database for your data
+        myRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                data.clear()
+                for (snapshot in dataSnapshot.children) {
+                    val model = snapshot.getValue(productsItem::class.java)
+                    data.add(model!!)
                 }
+                adapter.notifyDataSetChanged()
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException());
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

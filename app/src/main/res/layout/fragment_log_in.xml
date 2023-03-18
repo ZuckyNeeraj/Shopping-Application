@@ -83,6 +83,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.64" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.81" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logInButton"
         android:layout_width="wrap_content"
@@ -96,7 +103,53 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        />
+
+    <TextView
+        android:id="@+id/textView_alternate_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_alternate"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_dimension_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@id/textView_alternate_options"/>
+
+    <LinearLayout
+        android:id="@+id/social_log_in_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_alternate_options"
+        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/google_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/google_icon"
+            android:background="@drawable/circle_background"
+            android:layout_marginEnd="@dimen/density_independent_pixel_10dp"
+            />
+
+        <ImageView
+            android:id="@+id/fb_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fb_login"
+            android:background="@drawable/circle_background"
+            android:layout_marginStart="@dimen/density_independent_pixel_10dp"
+            />
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

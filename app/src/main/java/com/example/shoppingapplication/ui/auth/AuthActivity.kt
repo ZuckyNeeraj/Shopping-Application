@@ -8,11 +8,13 @@ import android.widget.Button
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.ActivityAuthBinding
 import com.example.shoppingapplication.ui.homepage.HomePageActivity
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding: ActivityAuthBinding
 private lateinit var auth: FirebaseAuth
+
 
 /**
  * This is an authentication activity.
