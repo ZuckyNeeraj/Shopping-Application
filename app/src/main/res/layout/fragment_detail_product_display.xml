@@ -40,7 +40,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/product_name"
                 android:fontFamily="@font/robot_condensed"
-                android:textColor="@color/white"
+                android:textColor="@color/bright_yellow"
                 android:textSize="24sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailedProductImage" />
@@ -53,7 +53,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/robot_condensed"
-                android:textColor="@color/white"
+                android:textColor="@color/bright_yellow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedProductName"
                 tools:text="$1.23" />
@@ -64,8 +64,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/roboto_condensed_regular"
+                android:textStyle="normal"
                 android:textColor="@color/white"
-                android:text="description here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\n"
+                android:text="@string/desc_here"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailedProductPrice" />
 

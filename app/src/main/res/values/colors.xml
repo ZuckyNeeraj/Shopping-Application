@@ -16,4 +16,6 @@
     <color name="transperent">#80FFFFFF</color>
     <color name="magenta_pink">#D7A3D5</color>
     <color name="try1">#CAAF7C</color>
+    <color name="bright_yellow">#FFFF00</color>
+    <color name="orange">#FFA500</color>
 </resources>
