@@ -17,8 +17,7 @@ import com.example.shoppingapplication.data.productsItem
 class MyAdapter(private val productList: ArrayList<productsItem>):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-
-
+    var onItemClick: ((productsItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_display, parent, false)
         return MyViewHolder(itemView)
@@ -45,6 +44,10 @@ class MyAdapter(private val productList: ArrayList<productsItem>):
 
         holder.itemView.startAnimation(
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.anim_1))
+
+        holder.itemView.setOnClickListener{
+            currentProduct.let { it1 -> onItemClick?.invoke(it1) }
+        }
     }
 
 

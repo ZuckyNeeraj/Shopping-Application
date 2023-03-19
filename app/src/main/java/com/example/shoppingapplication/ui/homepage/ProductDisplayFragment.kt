@@ -31,9 +31,6 @@ class ProductDisplayFragment : Fragment() {
     private var _binding: FragmentProductDisplayBinding? = null
     private val binding get() = _binding!!
 
-    // add a variable to hold the loading image view
-    private lateinit var loadingImage: ImageView
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,6 +76,17 @@ class ProductDisplayFragment : Fragment() {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException());
             }
         })
+
+        adapter.onItemClick = { product ->
+            val bundle = Bundle()
+            bundle.putSerializable("product", product)
+            val fragment = DetailProductDisplayFragment()
+            fragment.arguments = bundle
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.recyclerViewFrameLayout, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 
     override fun onDestroyView() {

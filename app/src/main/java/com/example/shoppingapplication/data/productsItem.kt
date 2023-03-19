@@ -9,6 +9,7 @@ data class productsItem(
     val description: String? = null,
     val id: Int? = null,
     val image: String? = null,
+    val category: String? = null,
     val price: Double? = null,
     val rating: Rating? = null,
     val title: String? = null

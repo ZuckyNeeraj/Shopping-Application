@@ -22,5 +22,7 @@
     <string name="product_name">Product Name</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="buy_now">Buy Now</string>
+    <string name="product_description">Product Description</string>
+    <string name="read_more">Read More</string>
 
 </resources>
