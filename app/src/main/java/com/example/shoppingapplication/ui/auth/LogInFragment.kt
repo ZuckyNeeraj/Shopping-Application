@@ -1,5 +1,13 @@
 package com.example.shoppingapplication.ui.auth
 
+/**
+ * This fragment will deal with the login of user.
+ * It will be loaded over auth activity.
+ * Both sign up and login fragment will render over the auth activity.
+ * @author Neeraj Mahapatra
+ */
+
+
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues.TAG
@@ -17,7 +25,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.FragmentLogInBinding
-import com.example.shoppingapplication.databinding.FragmentSignUpBinding
 import com.example.shoppingapplication.ui.homepage.HomePageActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -57,6 +64,13 @@ class LogInFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         googleSignInImageView = binding.googleLogIn
 
+
+        gsoAndGoogleSignIn()
+        textLogIn()
+        return binding.root
+    }
+
+    private fun gsoAndGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -67,15 +81,6 @@ class LogInFragment : Fragment() {
         googleSignInImageView.setOnClickListener {
             signInGoogle()
         }
-
-
-
-
-
-
-
-        textLogIn()
-        return binding.root
     }
 
     private fun signInGoogle() {

@@ -1,5 +1,13 @@
 package com.example.shoppingapplication.ui.auth
 
+/**
+ * This fragment will deal with the signup of user.
+ * It will be loaded over auth activity.
+ * Both sign up and login fragment will render over the auth activity.
+ * @author Neeraj Mahapatra
+ */
+
+
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -42,76 +50,56 @@ class SignUpFragment : Fragment() {
         signUpButton = binding.signUpButton
         auth = FirebaseAuth.getInstance()
 
+        signUpButtonFunctionality()
+        return binding.root
+    }
 
-        /**
-         * This will collect user name, email & password.
-         * it will authenticate using firebase, if everything is correct,
-         * it will render the log in fragment
-         * @return Log In Fragment
-         */
+    /**
+     * This will collect user name, email & password.
+     * it will authenticate using firebase, if everything is correct,
+     * it will render the log in fragment
+     * @return Log In Fragment
+     */
+    private fun signUpButtonFunctionality() {
         signUpButton.setOnClickListener {
+            val email = signUpEmail.text.toString()
+            val password = signUpPassword.text.toString()
 
-            val email: String = signUpEmail.text.toString()
-            val password: String = signUpPassword.text.toString()
-
-            if(email.isEmpty()){
-                activity?.let { it1 -> DynamicToast.makeError(it1,
-                    R.string.error_email_empty.toString(), Toast.LENGTH_SHORT).show() }
+            if (email.isEmpty()) {
+                activity?.let { DynamicToast.makeError(it, R.string.error_email_empty.toString())
+                    .show() }
                 return@setOnClickListener
             }
 
-            if(password.isEmpty()){
-                activity?.let { it1 -> DynamicToast.makeError(it1, R.string.error_password_empty.toString(), Toast.LENGTH_SHORT).show() }
+            if (password.isEmpty()) {
+                activity?.let { DynamicToast.makeError(it, R.string.error_password_empty.toString())
+                    .show() }
                 return@setOnClickListener
             }
-
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
-                        val user = auth.currentUser
-
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.authFrameFl, LogInFragment())
                             .commit()
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
-
-                        when {
+                        val errorMsg = when {
                             task.exception?.message?.contains("WEAK_PASSWORD") == true ->
-                                context?.let { it1 ->
-                                    DynamicToast.makeWarning(
-                                        it1,
-                                        R.string.error_weak_password.toString(), Toast.LENGTH_LONG).show()
-                                }
-
+                                R.string.error_weak_password.toString()
                             task.exception?.message?.contains("EMAIL_EXISTS") == true ->
-                                context?.let { it1 ->
-                                    DynamicToast.makeWarning(
-                                        it1,
-                                        R.string.error_user_exists.toString(), Toast.LENGTH_LONG).show()
-                                }
-
+                                R.string.error_user_exists.toString()
                             task.exception?.message?.contains("INVALID_EMAIL") == true ||
                                     task.exception?.message?.contains("MISSING_EMAIL") == true ->
-                                context?.let { it1 ->
-                                    DynamicToast.makeWarning(
-                                        it1,
-                                        R.string.error_auth_failed.toString(), Toast.LENGTH_LONG).show()
-                                }
-
+                                R.string.error_auth_failed.toString()
                             else ->
-                                context?.let { it1 -> DynamicToast.makeError(it1, task.exception?.message ?: getString(R.string.error_auth_failed), Toast.LENGTH_LONG).show() }
+                                task.exception?.message ?: getString(R.string.error_auth_failed)
                         }
+
+                        activity?.let { DynamicToast.makeError(it, errorMsg).show() }
                     }
                 }
-
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {

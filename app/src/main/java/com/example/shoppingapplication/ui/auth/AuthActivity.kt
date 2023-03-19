@@ -1,14 +1,18 @@
 package com.example.shoppingapplication.ui.auth
 
+/**
+ * This is an auth activity.
+ * Both login and sign up fragments will be render over this activity.
+ * @author Neeraj Mahapatra
+ */
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.ActivityAuthBinding
 import com.example.shoppingapplication.ui.homepage.HomePageActivity
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("StaticFieldLeak")
@@ -29,14 +33,10 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(this, HomePageActivity::class.java)
-            startActivity(intent)
+        auth.currentUser?.let {
+            startActivity(Intent(this, HomePageActivity::class.java))
             finish()
-        }else{
-            loadTheFragments()
-        }
+        } ?: loadTheFragments()
     }
 
 
@@ -47,25 +47,20 @@ class AuthActivity : AppCompatActivity() {
      */
 
     private fun loadTheFragments() {
-        binding.navView.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.navigation_login -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.authFrameFl, LogInFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.navigation_signup -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.authFrameFl, SignUpFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
+        binding.navView.setOnNavigationItemSelectedListener {
+            val fragment = when (it.itemId) {
+                R.id.navigation_login -> LogInFragment()
+                R.id.navigation_signup -> SignUpFragment()
+                else -> null
+            }
+            fragment?.let { f ->
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.authFrameFl, f)
+                    .commit()
+                return@setOnNavigationItemSelectedListener true
             }
             false
         }
-
-        // Show the login fragment by default
         supportFragmentManager.beginTransaction()
             .replace(R.id.authFrameFl, LogInFragment())
             .commit()

@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline5"
-        />
+        android:contentDescription="@string/logo_of_the_company" />
 
     <FrameLayout
         android:id="@+id/recyclerViewFrameLayout"

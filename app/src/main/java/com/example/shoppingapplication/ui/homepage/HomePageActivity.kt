@@ -1,25 +1,15 @@
 package com.example.shoppingapplication.ui.homepage
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
-import com.example.shoppingapplication.data.productsItem
 import com.example.shoppingapplication.databinding.ActivityHomePageBinding
-import com.example.shoppingapplication.repository.MyAdapter
 import com.example.shoppingapplication.ui.auth.AuthActivity
-import com.example.shoppingapplication.ui.auth.LogInFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding: ActivityHomePageBinding

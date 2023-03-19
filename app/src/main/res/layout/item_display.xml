@@ -4,52 +4,53 @@
     android:id="@+id/cardview_product"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/density_independent_pixel_8dp"
     android:background="@drawable/rectangle_box"
-    android:elevation="4dp">
+    android:elevation="@dimen/density_independent_pixel_4dp">
 
     <ImageView
         android:src="@drawable/rectangle_box"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:contentDescription="@string/just_a_rectangular_box" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="@dimen/density_independent_pixel_16dp">
 
         <ImageView
             android:id="@+id/item_display_product_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/density_independent_pixel_100dp"
+            android:layout_height="@dimen/density_independent_pixel_100dp"
             android:src="@drawable/ic_launcher_background"
             android:scaleType="centerCrop"
-            android:contentDescription="Product Image"/>
+            android:contentDescription="@string/product_image"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/density_independent_pixel_16dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/item_display_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
+                android:text="@string/product_name"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto_condensed_regular"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/text_dimension_16sp"/>
 
             <TextView
                 android:id="@+id/item_display_product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Product Price"
+                android:text="@string/product_price"
                 android:fontFamily="@font/roboto_condensed_regular"
-                android:textSize="14sp"/>
+                android:textSize="@dimen/text_dimension_14sp"/>
 
             <TextView
                 android:id="@+id/item_display_product_rating"
@@ -58,7 +59,7 @@
                 android:text="Product Ratings"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/text_dimension_16sp"/>
 
 
 
@@ -73,7 +74,7 @@
                     android:id="@+id/button_add_to_cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add to Cart"
+                    android:text="@string/add_to_cart"
                     android:fontFamily="@font/roboto_condensed_regular"
                     android:textSize="@dimen/text_dimension_12sp"
                     android:textStyle="bold"
@@ -85,7 +86,7 @@
                     android:id="@+id/button_buy_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buy Now"
+                    android:text="@string/buy_now"
                     android:textStyle="bold"
                     android:fontFamily="@font/roboto_condensed_regular"
                     android:textSize="@dimen/text_dimension_12sp"
