@@ -15,13 +15,24 @@ import com.example.shoppingapplication.R
 import com.example.shoppingapplication.data.productsItem
 
 
-class MyAdapter(private val productList: ArrayList<productsItem>):
+class MyAdapter(private var productList: ArrayList<productsItem>):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     var onItemClick: ((productsItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_display, parent, false)
         return MyViewHolder(itemView)
+    }
+
+    /**
+     * This will set the filtered list. Filtered list is the list of the data
+     * that is coming based on the search query the user provides.
+     * @param ArrayList<productsItem>
+     * @return New updated filtered List
+     */
+    fun setFilteredList(productList: ArrayList<productsItem>){
+        this.productList = productList
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

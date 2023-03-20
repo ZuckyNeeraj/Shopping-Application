@@ -42,5 +42,6 @@
     <string name="sample_user_name">John Doe</string>
     <string name="sample_gender">Male</string>
     <string name="sample_address">123 Main Street, Anytown USA</string>
+    <string name="search_text">Search Here…</string>
 
 </resources>
