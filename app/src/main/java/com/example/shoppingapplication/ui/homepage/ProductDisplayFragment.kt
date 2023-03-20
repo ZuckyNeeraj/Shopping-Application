@@ -1,25 +1,24 @@
 package com.example.shoppingapplication.ui.homepage
 
+/**
+ * This fragment will used to display the product inside the fragment.
+ * This will be also render inside Home Page Activity.
+ * @author Neeraj Mahapatra
+ */
+
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.data.productsItem
-import com.example.shoppingapplication.databinding.FragmentLogInBinding
 import com.example.shoppingapplication.databinding.FragmentProductDisplayBinding
 import com.example.shoppingapplication.repository.MyAdapter
-import com.example.shoppingapplication.ui.auth.LogInFragment
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -44,6 +43,7 @@ class ProductDisplayFragment : Fragment() {
     /**
      * This method will get the data from the firebase database and set it to the
      * recycler view.
+     * @return Set the data that is received from the firebase database.
      */
     private fun getDataFromFirebase() {
         // Get a reference to your Firebase database

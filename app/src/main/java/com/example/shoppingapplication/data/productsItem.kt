@@ -3,6 +3,11 @@ package com.example.shoppingapplication.data
 import com.google.errorprone.annotations.Keep
 import java.io.Serializable
 
+/**
+ * Data class for all the product items.
+ * Getting data from the firebase realtime database.
+ * @author Neeraj Mahapatra
+ */
 
 @Keep
 data class productsItem(

@@ -31,5 +31,16 @@
     <string name="my_cart">My Cart</string>
     <string name="my_details">My Details</string>
     <string name="moto">We Deliver Fresh Foods</string>
+    <string name="cart_amount">Total: ₹ 0.00</string>
+    <string name="checkout">Checkout</string>
+    <string name="my_orders">My Orders</string>
+    <string name="order_def_value">Order #123456</string>
+    <string name="order_status">Status: Shipped</string>
+    <string name="estimated_del_date">Estimated Delivery: March 30, 2023</string>
+    <string name="item_name">Item Name</string>
+    <string name="_19_99">₹ 19.99</string>
+    <string name="sample_user_name">John Doe</string>
+    <string name="sample_gender">Male</string>
+    <string name="sample_address">123 Main Street, Anytown USA</string>
 
 </resources>

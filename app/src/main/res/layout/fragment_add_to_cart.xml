@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.homepage.AddToCartFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/cartTitleTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_dimension_30sp"
+        android:fontFamily="@font/robot_condensed"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/my_cart"/>
 
-</FrameLayout>
+    <ListView
+        android:id="@+id/cartListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/density_independent_pixel_0dp"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="@dimen/density_independent_pixel_16dp">
+
+        <TextView
+            android:id="@+id/cartTotalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_dimension_16sp"
+            android:fontFamily="@font/robot_condensed"
+            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/density_independent_pixel_10dp"
+            android:textStyle="bold"
+            android:text="@string/cart_amount"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_dimension_16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_button"
+            android:text="@string/checkout"/>
+
+    </LinearLayout>
+
+</LinearLayout>

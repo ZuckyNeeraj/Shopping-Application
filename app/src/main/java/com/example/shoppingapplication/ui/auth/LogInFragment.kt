@@ -70,6 +70,11 @@ class LogInFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Below methods are to deal with the google single sign on feature.
+     * @return Allow user to sign via google SSO.
+     */
+
     private fun gsoAndGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))

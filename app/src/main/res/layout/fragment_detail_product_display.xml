@@ -8,8 +8,8 @@
     android:background="#FFFFFF">
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/density_independent_pixel_0dp"
+        android:layout_height="@dimen/density_independent_pixel_0dp"
 
         app:layout_constraintBottom_toTopOf="@id/detailedAddToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/detailedProductImage"
-                android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_width="@dimen/density_independent_pixel_0dp"
+                android:layout_height="@dimen/density_independent_pixel_300dp"
                 android:scaleType="centerCrop"
                 android:transitionName="photoToAnimate"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -36,33 +36,58 @@
                 android:id="@+id/detailedProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/density_independent_pixel_16dp"
+                android:layout_marginTop="@dimen/density_independent_pixel_16dp"
                 android:text="@string/product_name"
                 android:fontFamily="@font/robot_condensed"
                 android:textColor="@color/bright_yellow"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_dimension_24sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailedProductImage" />
 
 
             <TextView
-                android:id="@+id/detailedProductPrice"
+                android:id="@+id/detailedProductCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/robot_condensed"
+                android:layout_marginStart="@dimen/density_independent_pixel_16dp"
+                android:layout_marginTop="@dimen/density_independent_pixel_8dp"
+                android:fontFamily="@font/roboto_condensed_regular"
                 android:textColor="@color/bright_yellow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedProductName"
+                tools:text="Root Vegetable" />
+
+            <TextView
+                android:id="@+id/detailedProductRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/density_independent_pixel_16dp"
+                android:layout_marginTop="@dimen/density_independent_pixel_8dp"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:textColor="@color/bright_yellow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailedProductCategory"
+                tools:text="Root Vegetable" />
+
+            <TextView
+                android:id="@+id/detailedProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/density_independent_pixel_16dp"
+                android:layout_marginTop="@dimen/density_independent_pixel_8dp"
+                android:fontFamily="@font/robot_condensed"
+                android:textColor="@color/bright_yellow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailedProductRating"
                 tools:text="$1.23" />
+
 
             <TextView
                 android:id="@+id/detailedProductDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/density_independent_pixel_16dp"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -76,11 +101,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/detailedAddToCartButton"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/density_independent_pixel_0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/rounded_button"
-        android:text="Add to cart"
+        android:text="@string/add_to_cart"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

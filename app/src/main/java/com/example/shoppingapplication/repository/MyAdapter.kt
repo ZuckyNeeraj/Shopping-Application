@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -32,9 +33,9 @@ class MyAdapter(private val productList: ArrayList<productsItem>):
         val currentProduct = productList[position]
 
         holder.itemName.text = currentProduct.title
+        //we are storing the price first and then appending via Rs. symbol
         val priceValue: Double? = currentProduct.price
         holder.itemPrice.text = "$priceValue ₹"
-        holder.itemRating.text = currentProduct.rating?.rate.toString()
         // Set the product image using Glide
         Glide.with(holder.itemView.context)
             .load(currentProduct.image)
@@ -55,6 +56,5 @@ class MyAdapter(private val productList: ArrayList<productsItem>):
         val itemImage: ImageView = itemView.findViewById(R.id.item_display_product_image)
         val itemName: TextView = itemView.findViewById(R.id.item_display_product_name)
         val itemPrice: TextView = itemView.findViewById(R.id.item_display_product_price)
-        val itemRating: TextView = itemView.findViewById(R.id.item_display_product_rating)
     }
 }

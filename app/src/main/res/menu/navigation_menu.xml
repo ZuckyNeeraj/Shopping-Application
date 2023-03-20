@@ -12,7 +12,7 @@
     <item
         android:id="@+id/nav_cart"
         android:title="@string/my_cart"
-        android:icon="@drawable/project"
+        android:icon="@drawable/shopping_cart"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -24,18 +24,18 @@
     <item
         android:id="@+id/nav_track_order"
         android:title="Track my Order"
-        android:icon="@drawable/about_us"
+        android:icon="@drawable/track"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/nav_my_address"
         android:title="My address"
-        android:icon="@drawable/about_us"
+        android:icon="@drawable/home"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/nav_my_orders"
         android:title="My Orders"
-        android:icon="@drawable/about_us"
+        android:icon="@drawable/shopping_cart"
         app:showAsAction="ifRoom"/>
 </menu>

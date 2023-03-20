@@ -8,10 +8,10 @@ package com.example.shoppingapplication.ui.homepage
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.data.productsItem
@@ -21,11 +21,8 @@ class DetailProductDisplayFragment : Fragment() {
 
     private var _binding: FragmentDetailProductDisplayBinding? = null
     private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentDetailProductDisplayBinding.inflate(inflater, container, false)
         displayDataFromProductDisplayFragment()
         return binding.root
@@ -40,15 +37,25 @@ class DetailProductDisplayFragment : Fragment() {
     private fun displayDataFromProductDisplayFragment() {
         val product = arguments?.getSerializable("product") as productsItem
 
-        binding.detailedProductName.text = product.title
-        binding.detailedProductDescription.text = product.description
-        Glide.with(this)
-            .load(product.image)
-            .override(400, 400)
-            .placeholder(R.drawable.loading) //placeholder image
-            .into(binding.detailedProductImage)
-        val priceValue: Double? = product.price
-        binding.detailedProductPrice.text = "$priceValue ₹"
+        with(binding) {
+            detailedProductName.text = product.title
+            detailedProductDescription.text = product.description
+            Glide.with(this@DetailProductDisplayFragment)
+                .load(product.image)
+                .override(400, 400)
+                .placeholder(R.drawable.loading) //placeholder image
+                .into(detailedProductImage)
+            val priceValue: Double? = product.price
+            detailedProductPrice.text = "$priceValue ₹"
+            detailedProductCategory.text = product.category
+            val rating: Double? = product.rating?.rate
+            detailedProductRating.text = "Rating: $rating ★ / 5★"
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

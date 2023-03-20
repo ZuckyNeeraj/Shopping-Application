@@ -42,7 +42,7 @@
                 android:text="@string/product_name"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto_condensed_regular"
-                android:textSize="@dimen/text_dimension_16sp"/>
+                android:textSize="@dimen/text_dimension_20sp"/>
 
             <TextView
                 android:id="@+id/item_display_product_price"
@@ -50,16 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/product_price"
                 android:fontFamily="@font/roboto_condensed_regular"
-                android:textSize="@dimen/text_dimension_14sp"/>
-
-            <TextView
-                android:id="@+id/item_display_product_rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Product Ratings"
-                android:fontFamily="@font/roboto_condensed_regular"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_dimension_16sp"/>
+                android:textSize="@dimen/text_dimension_15sp"/>
 
 
 
