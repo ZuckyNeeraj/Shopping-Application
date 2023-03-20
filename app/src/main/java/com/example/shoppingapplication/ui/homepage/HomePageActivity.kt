@@ -10,14 +10,23 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.ActivityHomePageBinding
+import com.example.shoppingapplication.repository.NavigationImageAdapter
 import com.example.shoppingapplication.ui.auth.AuthActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -35,24 +44,37 @@ private lateinit var navigationView: NavigationView
 private val productDisplayFrag = ProductDisplayFragment()
 private val cartFrag = AddToCartFragment()
 private val userDetailFrag = UserDetailsFragment()
+private val trackOrderFrag = TrackOrderFragment()
 
-
-class HomePageActivity : AppCompatActivity(){
+class HomePageActivity : AppCompatActivity() {
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         setCurrentFragment(productDisplayFrag)
         drawer_func()
+        setRecyclerViewJumbotronImages()
         logOut()
+    }
+
+    private fun setRecyclerViewJumbotronImages() {
+        val recyclerView = binding.navigationRv
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        recyclerView.layoutManager = layoutManager
+
+        // get images from the home page activity
+        val images = listOf(R.drawable.offer3, R.drawable.offer3, R.drawable.offer3)
+        recyclerView.adapter = NavigationImageAdapter(images)
     }
 
     override fun onBackPressed() {
         drawerlayout = binding.drawerLayout
-        if(drawerlayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerlayout.isDrawerOpen(GravityCompat.START)) {
             drawerlayout.closeDrawer(GravityCompat.START)
-        }else {
+        } else {
             super.onBackPressed()
         }
     }
@@ -69,11 +91,13 @@ class HomePageActivity : AppCompatActivity(){
         // Set a click listener on the navigation icon to open the drawer
         toolbar.setOnClickListener {
             drawerlayout.openDrawer(GravityCompat.START)
+
         }
         drawerlayout = binding.drawerLayout
         navigationView = binding.navigationView
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerlayout, R.string.nav_open, R.string.nav_close)
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, drawerlayout, R.string.nav_open, R.string.nav_close)
 
         drawerlayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
@@ -95,6 +119,11 @@ class HomePageActivity : AppCompatActivity(){
                 R.id.nav_user_detail -> {
                     drawerlayout.closeDrawer(GravityCompat.START)
                     setCurrentFragmentOnCLick(userDetailFrag)
+                    true
+                }
+                R.id.nav_track_order -> {
+                    drawerlayout.closeDrawer(GravityCompat.START)
+                    setCurrentFragmentOnCLick(trackOrderFrag)
                     true
                 }
                 else -> false

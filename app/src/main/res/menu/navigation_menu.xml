@@ -21,4 +21,21 @@
         android:icon="@drawable/about_us"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/nav_track_order"
+        android:title="Track my Order"
+        android:icon="@drawable/about_us"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/nav_my_address"
+        android:title="My address"
+        android:icon="@drawable/about_us"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/nav_my_orders"
+        android:title="My Orders"
+        android:icon="@drawable/about_us"
+        app:showAsAction="ifRoom"/>
 </menu>

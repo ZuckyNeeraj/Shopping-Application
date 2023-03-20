@@ -18,9 +18,9 @@
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:src="@drawable/nav_menu_icon"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/guideline5"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/logOutButton"
@@ -45,19 +45,19 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:contentDescription="@string/logo_of_the_company"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/logo" />
 
         <FrameLayout
             android:id="@+id/recyclerViewFrameLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline5"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,7 +70,27 @@
         app:headerLayout="@layout/nav_header"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
-        android:background="@color/light_green"
-        app:menu="@menu/navigation_menu" />
+        app:menu="@menu/navigation_menu"
+        android:background="@color/light_green">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.example.shoppingapplication.ui.modifiedRecyclerView.CustomRecyclerView
+                android:id="@+id/navigation_rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="@dimen/density_independent_pixel_4dp"
+                tools:listitem="@layout/nav_image_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/navigation_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints,NotSibling" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
