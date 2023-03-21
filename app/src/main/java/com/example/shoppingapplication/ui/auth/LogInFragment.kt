@@ -56,18 +56,18 @@ class LogInFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentLogInBinding.inflate(inflater, container, false)
+        inits()
+        gsoAndGoogleSignIn()
+        textLogIn()
+        return binding.root
+    }
 
-        //set up UI elements
+    private fun inits() {
         logInEmail = binding.logInEmail
         logInPassword = binding.logInPassword
         logInButton = binding.logInButton
         auth = FirebaseAuth.getInstance()
         googleSignInImageView = binding.googleLogIn
-
-
-        gsoAndGoogleSignIn()
-        textLogIn()
-        return binding.root
     }
 
     /**

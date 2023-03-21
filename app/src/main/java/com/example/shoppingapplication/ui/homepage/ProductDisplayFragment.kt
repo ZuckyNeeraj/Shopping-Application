@@ -10,14 +10,14 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
@@ -43,13 +43,17 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var filteredList: ArrayList<productsItem>
 
+    override fun onResume() {
+        super.onResume()
+        getDataFromFirebase()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDisplayBinding.inflate(inflater, container, false)
         inits()
-        getDataFromFirebase()
         searchFuntionality()
         return binding.root
     }
@@ -63,6 +67,7 @@ class ProductDisplayFragment : Fragment() {
         recyclerView = binding.rvToShowItems
         adapter = MyAdapter(data)
         searchView = binding.searchView
+        filteredList = ArrayList<productsItem>()
     }
 
     /**
@@ -87,7 +92,7 @@ class ProductDisplayFragment : Fragment() {
 
     private fun filterlist(query: String?){
         if(query!=null){
-            val filteredList = ArrayList<productsItem>()
+            filteredList = ArrayList<productsItem>()
             for(i in data){
                 if(i.title?.lowercase(Locale.ROOT)?.contains(query) == true){
                     filteredList.add(i)
@@ -134,6 +139,12 @@ class ProductDisplayFragment : Fragment() {
             }
         })
 
+
+        /**
+         * this will activate when we click on the single product in the
+         * product list page.
+         * @return New fragment containing detail of the product
+         */
         adapter.onItemClick = { product ->
             val bundle = Bundle()
             bundle.putSerializable("product", product)

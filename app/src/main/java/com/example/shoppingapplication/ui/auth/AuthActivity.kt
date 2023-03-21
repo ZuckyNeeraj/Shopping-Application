@@ -32,11 +32,15 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
+        inits()
         auth.currentUser?.let {
             startActivity(Intent(this, HomePageActivity::class.java))
             finish()
         } ?: loadTheFragments()
+    }
+
+    private fun inits() {
+        auth = FirebaseAuth.getInstance()
     }
 
 

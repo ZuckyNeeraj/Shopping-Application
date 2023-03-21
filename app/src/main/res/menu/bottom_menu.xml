@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_user_detail"
+        android:title="@string/my_details"
+        android:icon="@drawable/about_us"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/nav_prod_display"
+        android:title="@string/home"
+        android:icon="@drawable/mission"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/nav_cart"
+        android:title="@string/my_cart"
+        android:icon="@drawable/shopping_cart"
+        app:showAsAction="ifRoom"/>
+
+</menu>

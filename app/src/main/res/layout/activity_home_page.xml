@@ -44,10 +44,23 @@
             android:id="@+id/recyclerViewFrameLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/density_independent_pixel_0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottomNV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline5" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/bottom_menu"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewFrameLayout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

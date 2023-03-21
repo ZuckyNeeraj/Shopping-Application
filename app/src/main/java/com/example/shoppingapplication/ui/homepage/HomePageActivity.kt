@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.ActivityHomePageBinding
 import com.example.shoppingapplication.repository.NavigationImageAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
 
@@ -28,6 +29,7 @@ private lateinit var binding: ActivityHomePageBinding
 private lateinit var drawerlayout: DrawerLayout
 private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 private lateinit var navigationView: NavigationView
+private lateinit var bottomNavView: BottomNavigationView
 private val productDisplayFrag = ProductDisplayFragment()
 private val cartFrag = AddToCartFragment()
 private val userDetailFrag = UserDetailsFragment()
@@ -41,7 +43,33 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setCurrentFragment(productDisplayFrag)
         drawer_func()
+        set_bottom_nav()
         setRecyclerViewJumbotronImages()
+    }
+
+    private fun set_bottom_nav() {
+        bottomNavView = binding.bottomNV
+
+        bottomNavView.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.nav_user_detail -> {
+                    setCurrentFragmentOnCLick(userDetailFrag)
+                    true
+                }
+                R.id.nav_prod_display -> {
+                    setCurrentFragmentOnCLick(productDisplayFrag)
+                    true
+                }
+                R.id.nav_cart -> {
+                    setCurrentFragmentOnCLick(cartFrag)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
     }
 
 

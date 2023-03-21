@@ -43,15 +43,18 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        //set up UI elements
+        inits()
+
+        signUpButtonFunctionality()
+        return binding.root
+    }
+
+    private fun inits() {
         signUpUserName = binding.sinUpUserName
         signUpEmail= binding.signUpEmailId
         signUpPassword = binding.signUpPassword
         signUpButton = binding.signUpButton
         auth = FirebaseAuth.getInstance()
-
-        signUpButtonFunctionality()
-        return binding.root
     }
 
     /**
