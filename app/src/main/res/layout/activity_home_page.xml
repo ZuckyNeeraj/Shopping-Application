@@ -15,9 +15,10 @@
 
         <ImageView
             android:id="@+id/hamburger_menu"
-            android:layout_width="@dimen/density_independent_pixel_60dp"
-            android:layout_height="@dimen/density_independent_pixel_50dp"
+            android:layout_width="@dimen/density_independent_pixel_40dp"
+            android:layout_height="@dimen/density_independent_pixel_40dp"
             android:src="@drawable/nav_menu_icon"
+            android:layout_marginStart="@dimen/density_independent_pixel_8dp"
             app:layout_constraintBottom_toBottomOf="@id/guideline5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

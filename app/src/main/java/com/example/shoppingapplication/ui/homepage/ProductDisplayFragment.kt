@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,21 +44,28 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var filteredList: ArrayList<productsItem>
 
-    override fun onResume() {
-        super.onResume()
-        getDataFromFirebase()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDisplayBinding.inflate(inflater, container, false)
         inits()
+        getDataFromFirebase()
         searchFuntionality()
         return binding.root
     }
 
+    /**
+     * Once the view is created assigning the menu resources image.
+     * also activating the drawer func() that is defined in the Home Page Activity.
+     * @return Menu Image, triggers drawer function
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val imageView = requireActivity().findViewById<ImageView>(R.id.hamburger_menu)
+        imageView.setImageResource(R.drawable.green_menu)
+        val homePageActivity= activity as HomePageActivity
+        homePageActivity.drawer_func()
+    }
     /**
      * This method will initialize all the required resources.
      * @return Initialize all the resources.
@@ -67,7 +75,6 @@ class ProductDisplayFragment : Fragment() {
         recyclerView = binding.rvToShowItems
         adapter = MyAdapter(data)
         searchView = binding.searchView
-        filteredList = ArrayList<productsItem>()
     }
 
     /**
@@ -76,7 +83,6 @@ class ProductDisplayFragment : Fragment() {
      * @return Required product lists based on query.
      */
     private fun searchFuntionality() {
-        searchView.clearFocus()
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false

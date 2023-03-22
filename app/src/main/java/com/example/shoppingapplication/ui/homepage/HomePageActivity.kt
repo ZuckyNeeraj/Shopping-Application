@@ -110,7 +110,7 @@ class HomePageActivity : AppCompatActivity() {
      * hamburger image.
      * @return Navigation Drawer
      */
-    private fun drawer_func() {
+    fun drawer_func() {
         // Set the toolbar as the action bar
         val toolbar = binding.hamburgerMenu
 

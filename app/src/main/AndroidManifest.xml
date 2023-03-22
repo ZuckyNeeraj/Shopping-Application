@@ -13,15 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingApplication"
         tools:targetApi="31">
+
+
         <activity
             android:name="com.example.shoppingapplication.ui.auth.AuthActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="MissingClass" />
         <activity
             android:name="com.example.shoppingapplication.ui.homepage.HomePageActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="MissingClass" />
 
         <activity android:name=".ui.auth.LogInFragment"/>
@@ -29,6 +33,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

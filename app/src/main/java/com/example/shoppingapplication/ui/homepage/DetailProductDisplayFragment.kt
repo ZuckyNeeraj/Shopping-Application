@@ -8,9 +8,8 @@ package com.example.shoppingapplication.ui.homepage
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.shoppingapplication.R
@@ -22,10 +21,26 @@ class DetailProductDisplayFragment : Fragment() {
     private var _binding: FragmentDetailProductDisplayBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDetailProductDisplayBinding.inflate(inflater, container, false)
         displayDataFromProductDisplayFragment()
         return binding.root
+    }
+
+    /**
+     * Once the view is created assigning the menu resources image.
+     * also setting up the product display fragment again on pressing of this back button.
+     * @return Menu Image, replace the current fragment to product display fragment
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val imageView = requireActivity().findViewById<ImageView>(R.id.hamburger_menu)
+        imageView.setImageResource(R.drawable.green_go_back)
+
+        imageView.setOnClickListener{
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.recyclerViewFrameLayout, ProductDisplayFragment())?.addToBackStack(null)
+                ?.commit()
+        }
     }
 
     /**

@@ -13,6 +13,8 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -59,6 +61,7 @@ class LogInFragment : Fragment() {
         inits()
         gsoAndGoogleSignIn()
         textLogIn()
+        disableLogInButtonAtFirst()
         return binding.root
     }
 
@@ -68,6 +71,32 @@ class LogInFragment : Fragment() {
         logInButton = binding.logInButton
         auth = FirebaseAuth.getInstance()
         googleSignInImageView = binding.googleLogIn
+    }
+
+    /**
+     * This method will hide the login button until email and password are not filled
+     * @return null
+     */
+    private fun disableLogInButtonAtFirst() {
+
+        // Disable the SignUpButton initially
+        logInButton.isEnabled = false
+
+        // Add text change listeners to each EditText field
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Check if all three EditText fields are not empty
+                logInButton.isEnabled = (!logInEmail.text.isNullOrEmpty()
+                        && !logInPassword.text.isNullOrEmpty())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        }
+
+        logInEmail.addTextChangedListener(textWatcher)
+        logInPassword.addTextChangedListener(textWatcher)
     }
 
     /**
