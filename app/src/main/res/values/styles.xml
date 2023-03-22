@@ -11,5 +11,13 @@
         <!-- Customize your theme here -->
     </style>
 
+    <style name="DropDownItemStyle" parent="@android:style/Widget.DropDownItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/text_background</item>
+        <item name="android:textSize">@dimen/text_dimension_20sp</item>
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+    </style>
+
+
 
 </resources>

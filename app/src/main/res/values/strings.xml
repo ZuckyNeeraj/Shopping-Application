@@ -47,5 +47,13 @@
     <string name="minus_symbol">-</string>
     <string name="plus_symbol">+</string>
     <string name="zero">0</string>
+    <string name="next">Next</string>
+    <string name="menu_image">menu_image</string>
+
+    <string-array name="category_options">
+        <item>Category 1</item>
+        <item>Category 2</item>
+    </string-array>
+
 
 </resources>

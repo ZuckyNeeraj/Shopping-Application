@@ -7,8 +7,13 @@ package com.example.shoppingapplication.ui.homepage
  */
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ContentValues
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +22,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +38,11 @@ import com.google.firebase.database.ValueEventListener
 import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Context
 
+
+private var reportName: String = "Neeraj"
+private var reportDescription: String = "Desc"
 
 class ProductDisplayFragment : Fragment() {
 
@@ -43,6 +53,9 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var adapter: MyAdapter
     private lateinit var searchView: SearchView
     private lateinit var filteredList: ArrayList<productsItem>
+    private lateinit var reportImageViewButton: ImageView
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +65,120 @@ class ProductDisplayFragment : Fragment() {
         inits()
         getDataFromFirebase()
         searchFuntionality()
+        reportButtonClick()
         return binding.root
+    }
+
+    /**
+     * This method will be triggered on clicking report Image.
+     * A form will be opened that can take the issue of the user.
+     * On clicking the next button it will pass all the data to the next dialog.
+     * User can verify it and take some actions
+     * @return dialog box with form.
+     */
+    private fun reportButtonClick() {
+        reportImageViewButton.setOnClickListener {
+            // Create a new dialog
+            val reportDialog = context?.let { it1 -> Dialog(it1) }
+            reportDialog?.setContentView(R.layout.report_form)
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+            if (reportDialog != null) {
+                reportDialog.window?.setLayout(width, height)
+                // Show the dialog
+                reportDialog.show()
+            }
+
+            val reportOkButton = reportDialog?.findViewById<ImageView>(R.id.report_ok_button)
+            val reportUserNameEditText = reportDialog?.findViewById<EditText>(R.id.report_user_name)
+            val reportUserDescEditText = reportDialog?.findViewById<EditText>(R.id.report_user_desc)
+
+            // Disable the Next button initially
+            reportOkButton?.isEnabled = false
+
+            // Add a text change listener to both EditTexts
+            reportUserNameEditText?.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    // Check if both EditTexts have some text entered
+                    reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserDescEditText?.text.isNullOrBlank()
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
+
+            reportUserDescEditText?.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    // Check if both EditTexts have some text entered
+                    reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserNameEditText?.text.isNullOrBlank()
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
+
+            reportOkButton?.setOnClickListener {
+                reportName = reportUserNameEditText?.text.toString()
+                reportDescription = reportUserDescEditText?.text.toString()
+                reportDialog.dismiss()
+                show_report_details()
+            }
+
+            reportDialog?.findViewById<ImageView>(R.id.report_close_image)?.setOnClickListener {
+                reportDialog.dismiss()
+            }
+        }
+    }
+
+
+    /**
+     * This method will be open and show the data that have been shared by the user
+     * earlier.
+     * @return new dialog box, also if send is pressed it should be send to the manufacturer.
+     */
+    private fun show_report_details() {
+        val nextDialog = context?.let { Dialog(it) }
+        nextDialog?.setContentView(R.layout.report_response)
+        val width = ViewGroup.LayoutParams.MATCH_PARENT
+        val height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        if (nextDialog != null) {
+            nextDialog.window?.setLayout(width, height)
+            nextDialog.findViewById<TextView>(R.id.report_response_name).text = reportName
+            nextDialog.findViewById<TextView>(R.id.report_response_desc).text = reportDescription
+            // Show the dialog
+            nextDialog.show()
+        }
+
+        /**
+         * This will be triggered on the snd button and it will send mail to the owner about
+         * the problems that is faced by the user.
+         */
+        nextDialog?.findViewById<ImageView>(R.id.report_send_button)?.setOnClickListener{
+            val recipient = "neeraj.mahapatra@mindstix.com"
+            val subject = "Report"
+            val body1 = reportName.toString()
+            val body2 = reportDescription.toString()
+
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+                putExtra(Intent.EXTRA_TEXT, "Name: $body1\n\n Issue: $body2")
+            }
+
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            }
+        }
+
+        nextDialog?.findViewById<ImageView>(R.id.response_close_image)?.setOnClickListener {
+            nextDialog.dismiss()
+        }
+
     }
 
     /**
@@ -75,6 +201,7 @@ class ProductDisplayFragment : Fragment() {
         recyclerView = binding.rvToShowItems
         adapter = MyAdapter(data)
         searchView = binding.searchView
+        reportImageViewButton = binding.reportButton
     }
 
     /**
