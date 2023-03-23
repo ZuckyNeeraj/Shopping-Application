@@ -24,6 +24,7 @@ import com.example.shoppingapplication.ui.homepage.AddToCartFragment
 
 class MyAdapter(private var productList: ArrayList<productsItem>):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
     var onItemClick: ((productsItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -68,23 +69,31 @@ class MyAdapter(private var productList: ArrayList<productsItem>):
         }
 
         holder.addToCartButton.setOnClickListener {
-            try{
+            try {
                 val countText = holder.countEditText.text.toString()
                 val count = countText.toInt()
+                val productName = currentProduct.title
 
-//                Log.d("count", count.toString())
+                // Pass the product name and quantity to the AddToCartFragment
                 val bundle = Bundle()
                 bundle.putInt("count", count)
+                bundle.putString("productName", productName)
+                currentProduct.id.let { it1 ->
+                    if (it1 != null) {
+                        bundle.putInt("productId", it1)
+                    }
+                }
 
                 val addToCartFragment = AddToCartFragment()
                 addToCartFragment.arguments = bundle
+
 
                 val fragmentManager = (holder.itemView.context as AppCompatActivity).supportFragmentManager
                 fragmentManager.beginTransaction()
                     .replace(R.id.recyclerViewFrameLayout, addToCartFragment)
                     .addToBackStack(null)
                     .commit()
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 Log.d("Fata", e.toString())
             }
         }
