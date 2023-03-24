@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -15,15 +16,21 @@ import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import com.example.shoppingapplication.databinding.ActivityMainBinding
 import com.example.shoppingapplication.ui.auth.AuthActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding: ActivityMainBinding
-// Create a HashMap to store the quantities of each product in the cart
-val cartQuantities = HashMap<Int?, Pair<String, Int>>()
+
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+
         setContentView(binding.root)
         animateSplash()
     }

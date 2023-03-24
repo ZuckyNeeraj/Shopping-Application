@@ -55,6 +55,65 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var filteredList: ArrayList<productsItem>
     private lateinit var reportImageViewButton: ImageView
 
+    private val viewOnClickListener = View.OnClickListener { view ->
+        when (view) {
+            binding.reportButton -> {
+                // Create a new dialog
+                val reportDialog = context?.let { it1 -> Dialog(it1) }
+                reportDialog?.setContentView(R.layout.report_form)
+                val width = ViewGroup.LayoutParams.MATCH_PARENT
+                val height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+                if (reportDialog != null) {
+                    reportDialog.window?.setLayout(width, height)
+                    // Show the dialog
+                    reportDialog.show()
+                }
+
+                val reportOkButton = reportDialog?.findViewById<ImageView>(R.id.report_ok_button)
+                val reportUserNameEditText = reportDialog?.findViewById<EditText>(R.id.report_user_name)
+                val reportUserDescEditText = reportDialog?.findViewById<EditText>(R.id.report_user_desc)
+
+                // Disable the Next button initially
+                reportOkButton?.isEnabled = false
+
+                // Add a text change listener to both EditTexts
+                reportUserNameEditText?.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                        // Check if both EditTexts have some text entered
+                        reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserDescEditText?.text.isNullOrBlank()
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                })
+
+                reportUserDescEditText?.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                        // Check if both EditTexts have some text entered
+                        reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserNameEditText?.text.isNullOrBlank()
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                })
+
+                reportOkButton?.setOnClickListener {
+                    reportName = reportUserNameEditText?.text.toString()
+                    reportDescription = reportUserDescEditText?.text.toString()
+                    reportDialog.dismiss()
+                    show_report_details()
+                }
+
+                reportDialog?.findViewById<ImageView>(R.id.report_close_image)?.setOnClickListener {
+                    reportDialog.dismiss()
+                }
+            }
+        }
+    }
+
 
 
     override fun onCreateView(
@@ -77,60 +136,7 @@ class ProductDisplayFragment : Fragment() {
      * @return dialog box with form.
      */
     private fun reportButtonClick() {
-        reportImageViewButton.setOnClickListener {
-            // Create a new dialog
-            val reportDialog = context?.let { it1 -> Dialog(it1) }
-            reportDialog?.setContentView(R.layout.report_form)
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.WRAP_CONTENT
-
-            if (reportDialog != null) {
-                reportDialog.window?.setLayout(width, height)
-                // Show the dialog
-                reportDialog.show()
-            }
-
-            val reportOkButton = reportDialog?.findViewById<ImageView>(R.id.report_ok_button)
-            val reportUserNameEditText = reportDialog?.findViewById<EditText>(R.id.report_user_name)
-            val reportUserDescEditText = reportDialog?.findViewById<EditText>(R.id.report_user_desc)
-
-            // Disable the Next button initially
-            reportOkButton?.isEnabled = false
-
-            // Add a text change listener to both EditTexts
-            reportUserNameEditText?.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    // Check if both EditTexts have some text entered
-                    reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserDescEditText?.text.isNullOrBlank()
-                }
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            })
-
-            reportUserDescEditText?.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    // Check if both EditTexts have some text entered
-                    reportOkButton?.isEnabled = !s.isNullOrBlank() && !reportUserNameEditText?.text.isNullOrBlank()
-                }
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            })
-
-            reportOkButton?.setOnClickListener {
-                reportName = reportUserNameEditText?.text.toString()
-                reportDescription = reportUserDescEditText?.text.toString()
-                reportDialog.dismiss()
-                show_report_details()
-            }
-
-            reportDialog?.findViewById<ImageView>(R.id.report_close_image)?.setOnClickListener {
-                reportDialog.dismiss()
-            }
-        }
+        reportImageViewButton.setOnClickListener(viewOnClickListener)
     }
 
 

@@ -38,6 +38,51 @@ class SignUpFragment : Fragment() {
     private lateinit var signUpPassword: EditText
     private lateinit var auth: FirebaseAuth
 
+    private val viewOnClickListener = View.OnClickListener { view ->
+        when (view) {
+            binding.signUpButton -> {
+                val email = signUpEmail.text.toString()
+                val password = signUpPassword.text.toString()
+
+                if (email.isEmpty()) {
+                    activity?.let {
+                        DynamicToast.makeError(it, R.string.error_email_empty.toString())
+                            .show()
+                    }
+                }
+
+                if (password.isEmpty()) {
+                    activity?.let {
+                        DynamicToast.makeError(it, R.string.error_password_empty.toString())
+                            .show()
+                    }
+                }
+
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.authFrameFl, LogInFragment())
+                                .commit()
+                        } else {
+                            val errorMsg = when {
+                                task.exception?.message?.contains("WEAK_PASSWORD") == true ->
+                                    R.string.error_weak_password.toString()
+                                task.exception?.message?.contains("EMAIL_EXISTS") == true ->
+                                    R.string.error_user_exists.toString()
+                                task.exception?.message?.contains("INVALID_EMAIL") == true ||
+                                        task.exception?.message?.contains("MISSING_EMAIL") == true ->
+                                    R.string.error_auth_failed.toString()
+                                else ->
+                                    task.exception?.message ?: getString(R.string.error_auth_failed)
+                            }
+
+                            activity?.let { DynamicToast.makeError(it, errorMsg).show() }
+                        }
+                    }
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,49 +140,7 @@ class SignUpFragment : Fragment() {
      * @return Log In Fragment
      */
     private fun signUpButtonFunctionality() {
-        signUpButton.setOnClickListener {
-            val email = signUpEmail.text.toString()
-            val password = signUpPassword.text.toString()
-
-            if (email.isEmpty()) {
-                activity?.let {
-                    DynamicToast.makeError(it, R.string.error_email_empty.toString())
-                        .show()
-                }
-                return@setOnClickListener
-            }
-
-            if (password.isEmpty()) {
-                activity?.let {
-                    DynamicToast.makeError(it, R.string.error_password_empty.toString())
-                        .show()
-                }
-                return@setOnClickListener
-            }
-
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.authFrameFl, LogInFragment())
-                            .commit()
-                    } else {
-                        val errorMsg = when {
-                            task.exception?.message?.contains("WEAK_PASSWORD") == true ->
-                                R.string.error_weak_password.toString()
-                            task.exception?.message?.contains("EMAIL_EXISTS") == true ->
-                                R.string.error_user_exists.toString()
-                            task.exception?.message?.contains("INVALID_EMAIL") == true ||
-                                    task.exception?.message?.contains("MISSING_EMAIL") == true ->
-                                R.string.error_auth_failed.toString()
-                            else ->
-                                task.exception?.message ?: getString(R.string.error_auth_failed)
-                        }
-
-                        activity?.let { DynamicToast.makeError(it, errorMsg).show() }
-                    }
-                }
-        }
+        signUpButton.setOnClickListener(viewOnClickListener)
     }
 
     override fun onDestroyView() {

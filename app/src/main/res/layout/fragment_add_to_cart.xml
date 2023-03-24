@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
@@ -10,16 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_dimension_30sp"
+        android:layout_marginStart="@dimen/density_independent_pixel_4dp"
+        android:layout_marginBottom="@dimen/density_independent_pixel_4dp"
         android:fontFamily="@font/robot_condensed"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:text="@string/my_cart"/>
 
     <ListView
-        android:id="@+id/cartListView"
+        android:id="@+id/cart_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/density_independent_pixel_4dp"
         android:divider="@android:color/transparent"
+        tools:listitem="@layout/cart_item_layout"
         android:dividerHeight="@dimen/density_independent_pixel_0dp"
         android:scrollbars="none" />
 
@@ -36,7 +40,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_dimension_16sp"
             android:fontFamily="@font/robot_condensed"
-            android:textColor="@color/white"
+            android:textColor="@color/light_green"
             android:layout_marginEnd="@dimen/density_independent_pixel_10dp"
             android:textStyle="bold"
             android:text="@string/cart_amount"/>

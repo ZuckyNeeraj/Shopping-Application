@@ -7,8 +7,11 @@ package com.example.shoppingapplication.ui.homepage
  */
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -20,7 +23,9 @@ import com.example.shoppingapplication.databinding.ActivityHomePageBinding
 import com.example.shoppingapplication.repository.NavigationImageAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.common.reflect.TypeToken
 import com.google.firebase.database.*
+import com.google.gson.Gson
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding: ActivityHomePageBinding
@@ -36,6 +41,8 @@ private val userDetailFrag = UserDetailsFragment()
 private val trackOrderFrag = TrackOrderFragment()
 
 class HomePageActivity : AppCompatActivity() {
+    private lateinit var cartQuantities: MutableMap<Int, Pair<String, Int>>
+    private lateinit var sharedPreferences: SharedPreferences
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,32 @@ class HomePageActivity : AppCompatActivity() {
         drawer_func()
         set_bottom_nav()
         setRecyclerViewJumbotronImages()
+        initialCartNumberDisplay()
+
+    }
+
+    /**
+     * When the app will again reopen initially in the carts() section
+     * it was not displaying anything so this method will setup that value
+     * @return sum of items in cart as Cart(sum_of_items)
+     */
+    private fun initialCartNumberDisplay() {
+        cartQuantities = mutableMapOf()
+        sharedPreferences = getSharedPreferences("my_shared_prefs", Context.MODE_PRIVATE)
+        cartQuantities = sharedPreferences.getString("my_hashmap_key", "{}")?.let {
+            Gson().fromJson(it, object : TypeToken<MutableMap<Int, Pair<String, Int>>>() {}.type)
+        } ?: mutableMapOf()
+
+        val totalItems = cartQuantities.values.sumOf { it.second }
+
+        // Update the cart item title with the total number of items in the cart
+        findViewById<NavigationView>(R.id.navigation_view)
+            .menu.findItem(R.id.nav_cart).title = "My Cart ($totalItems)"
+
+        // Update the cart item title with the total number of items in the cart
+        findViewById<BottomNavigationView>(R.id.bottomNV)
+            .menu.findItem(R.id.nav_cart).title = "My Cart ($totalItems)"
+
     }
 
     private fun set_bottom_nav() {
@@ -71,6 +104,7 @@ class HomePageActivity : AppCompatActivity() {
         }
 
     }
+
 
 
     /**
@@ -166,7 +200,7 @@ class HomePageActivity : AppCompatActivity() {
 
     /**
      * This method will load the very first fragment.
-     * @param Fragment
+     * @param fragment
      * @return Load the fragment on the Home page activity
      */
     private fun setCurrentFragment(fragment: Fragment) =
@@ -177,7 +211,7 @@ class HomePageActivity : AppCompatActivity() {
 
     /**
      * This method will load fragment except the first fragment.(Because we have to put the later fragment to backstack.)
-     * @param Fragment
+     * @param fragment
      * @return Load the fragment on the Home page activity
      */
     private fun setCurrentFragmentOnCLick(fragment: Fragment) =

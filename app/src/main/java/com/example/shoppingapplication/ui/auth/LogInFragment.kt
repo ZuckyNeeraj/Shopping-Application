@@ -51,7 +51,6 @@ class LogInFragment : Fragment() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInImageView: ImageView
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

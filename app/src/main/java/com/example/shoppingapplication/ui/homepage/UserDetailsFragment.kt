@@ -28,10 +28,20 @@ import com.google.firebase.auth.FirebaseAuth
 @SuppressLint("StaticFieldLeak")
 private lateinit var logOutButton: Button
 private lateinit var auth: FirebaseAuth
+
 class UserDetailsFragment : Fragment() {
 
     private var _binding: FragmentUserDetailsBinding? = null
     private val binding get() = _binding!!
+    private val viewOnClickListener = View.OnClickListener { view ->
+        when (view) {
+            binding.logOutButton ->{
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(context, AuthActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,10 +71,6 @@ class UserDetailsFragment : Fragment() {
          * This will trigger when log out button will be clicked.
          * As log out button will be clicked, it will redirect to Auth Activity.
          */
-        logOutButton.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(context, AuthActivity::class.java)
-            startActivity(intent)
-        }
+        logOutButton.setOnClickListener(viewOnClickListener)
     }
 }
