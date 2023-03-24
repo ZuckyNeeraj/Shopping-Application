@@ -114,19 +114,23 @@ class ProductDisplayFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDisplayBinding.inflate(inflater, container, false)
         inits()
+//        Toast.makeText(context, "OnCreateView Called", Toast.LENGTH_SHORT).show()
         getDataFromFirebase()
         searchFuntionality()
         reportButtonClick()
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+//        Toast.makeText(context, "OnResume Called", Toast.LENGTH_SHORT).show()
+    }
     /**
      * This method will be triggered on clicking report Image.
      * A form will be opened that can take the issue of the user.
@@ -237,9 +241,10 @@ class ProductDisplayFragment : Fragment() {
                 }
             }
 
-//            adapter.setFilteredList(filteredList)
+
             if(filteredList.isEmpty()){
-                context?.let { DynamicToast.makeWarning(it, "No Data Found", Toast.LENGTH_SHORT).show() }
+//                Log.d("fatrahahai", "hello")
+                Toast.makeText(context, "No Data Found", Toast.LENGTH_SHORT).show()
             }else{
                 adapter.setFilteredList(filteredList)
             }
