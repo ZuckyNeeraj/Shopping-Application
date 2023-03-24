@@ -115,7 +115,6 @@ class ProductDisplayFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -238,6 +237,7 @@ class ProductDisplayFragment : Fragment() {
                 }
             }
 
+//            adapter.setFilteredList(filteredList)
             if(filteredList.isEmpty()){
                 context?.let { DynamicToast.makeWarning(it, "No Data Found", Toast.LENGTH_SHORT).show() }
             }else{

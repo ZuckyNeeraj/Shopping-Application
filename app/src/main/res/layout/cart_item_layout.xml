@@ -4,18 +4,19 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/light_green"
-    android:padding="16dp">
+    android:padding="@dimen/density_independent_pixel_16dp">
 
     <TextView
         android:id="@+id/product_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/density_independent_pixel_0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_condensed_regular"
         android:text="Mango"
         android:layout_weight="1"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_dimension_18sp"
         android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/product_quantity"
@@ -23,7 +24,22 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_condensed_regular"
-        android:text="12"
-        android:textSize="16sp" />
+        android:text="@string/_12"
+        android:layout_marginEnd="@dimen/density_independent_pixel_4dp"
+        android:textSize="@dimen/text_dimension_20sp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cart_item_delete_button"
+        android:layout_width="@dimen/density_independent_pixel_80dp"
+        android:layout_height="@dimen/density_independent_pixel_38dp"
+        android:text="@string/delete"
+        android:layout_marginStart="@dimen/density_independent_pixel_4dp"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:textSize="@dimen/text_dimension_20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/density_independent_pixel_10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"/>
 
 </LinearLayout>

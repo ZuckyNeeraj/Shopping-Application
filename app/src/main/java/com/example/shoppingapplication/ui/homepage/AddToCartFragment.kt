@@ -40,11 +40,16 @@ class AddToCartFragment : Fragment() {
         cartQuantities = sharedPreferences.getString("my_hashmap_key", null)?.let {
             Gson().fromJson(it, object : TypeToken<MutableMap<Int, Pair<String, Int>>>() {}.type)
         } ?: mutableMapOf()
+//        Log.d("alldata","$cartQuantities")
+        val cartQuantitiesSize = cartQuantities.size.toString()
+        Log.d("cartSize", "$cartQuantitiesSize....$cartQuantities")
         val listView = binding.cartListView // get the reference of the ListView from the binding object
-        val adapter = CartAdapter(requireContext(), cartQuantities)
+        val adapter = CartAdapter(requireContext(), cartQuantities, sharedPreferences)
         listView.adapter = adapter
+        adapter.cartQuantities = cartQuantities // Add this line to update the cartQuantities map in the adapter
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,15 +63,37 @@ class AddToCartFragment : Fragment() {
      * @return Total number of items in the cart.
      */
     private fun setTheCartItemNumbers() {
-        val count = arguments?.getInt("count", 0)?:0
-        val productName = arguments?.getString("productName", "")?:""
-        val productId = arguments?.getInt("productId", 0)?:0
+        val count = arguments?.getInt("count", 0) ?: 0
+        val productName = arguments?.getString("productName", "") ?: ""
+        val productId = arguments?.getInt("productId", 0) ?: 0
 
         val (name, currentCount) = cartQuantities.getOrDefault(productId, Pair("", 0))
         val newCount = currentCount + count
-        cartQuantities[productId] = Pair(productName, newCount)
+
+        /*This will check if the count of items becomes zero just clear the cartQuantities */
+
+        if (newCount <= 0) {
+            cartQuantities.remove(productId)
+        } else {
+            cartQuantities[productId] = Pair(productName, newCount)
+        }
 
         val totalItems = cartQuantities.values.sumBy { it.second }
+
+        sharedPreferences.edit().apply {
+            if (cartQuantities.isEmpty()) {
+                remove("my_hashmap_key")
+            } else {
+                putString("my_hashmap_key", Gson().toJson(cartQuantities))
+            }
+            apply()
+        }
+
+        val adapter = binding.cartListView.adapter as? CartAdapter
+        adapter?.let {
+            it.cartQuantities = cartQuantities
+            it.notifyDataSetChanged()
+        }
 
         // Update the cart item title with the total number of items in the cart
         requireActivity().findViewById<NavigationView>(R.id.navigation_view)
@@ -76,11 +103,9 @@ class AddToCartFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNV)
             .menu.findItem(R.id.nav_cart).title = "My Cart ($totalItems)"
 
-        sharedPreferences.edit().apply {
-            putString("my_hashmap_key", Gson().toJson(cartQuantities))
-            apply()
-        }
+        Log.d("cartquantites", "$cartQuantities")
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

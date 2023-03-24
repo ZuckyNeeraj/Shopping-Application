@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/density_independent_pixel_4dp"
         android:divider="@android:color/transparent"
-        tools:listitem="@layout/cart_item_layout"
         android:dividerHeight="@dimen/density_independent_pixel_0dp"
         android:scrollbars="none" />
 

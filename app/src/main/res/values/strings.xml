@@ -49,6 +49,8 @@
     <string name="zero">0</string>
     <string name="next">Next</string>
     <string name="menu_image">menu_image</string>
+    <string name="delete">Delete</string>
+    <string name="_12">12</string>
 
     <string-array name="category_options">
         <item>Category 1</item>
