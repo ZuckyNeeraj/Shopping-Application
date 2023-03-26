@@ -15,25 +15,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppingapplication.R
-import com.example.shoppingapplication.databinding.FragmentProductDisplayBinding
 import com.example.shoppingapplication.databinding.FragmentUserDetailsBinding
-import com.example.shoppingapplication.repository.NavigationImageAdapter
 import com.example.shoppingapplication.ui.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 
-
-@SuppressLint("StaticFieldLeak")
-private lateinit var logOutButton: Button
-private lateinit var auth: FirebaseAuth
-
 class UserDetailsFragment : Fragment() {
 
+    private lateinit var logOutButton: Button
+    private lateinit var auth: FirebaseAuth
     private var _binding: FragmentUserDetailsBinding? = null
     private val binding get() = _binding!!
-    private val viewOnClickListener = View.OnClickListener { view ->
+    private val onClickListener = View.OnClickListener { view ->
         when (view) {
             binding.logOutButton ->{
                 FirebaseAuth.getInstance().signOut()
@@ -49,9 +41,23 @@ class UserDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
-        logOut()
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        logOut()
+        setListeners()
+    }
+
+    /**
+     * This will trigger when log out button will be clicked.
+     * As log out button will be clicked, it will redirect to Auth Activity.
+     */
+    private fun setListeners() {
+        binding.logOutButton.setOnClickListener(onClickListener)
+    }
+
 
     /**
      * Log out functionality.
@@ -66,11 +72,5 @@ class UserDetailsFragment : Fragment() {
             val intent = Intent(context, AuthActivity::class.java)
             startActivity(intent)
         }
-
-        /**
-         * This will trigger when log out button will be clicked.
-         * As log out button will be clicked, it will redirect to Auth Activity.
-         */
-        logOutButton.setOnClickListener(viewOnClickListener)
     }
 }

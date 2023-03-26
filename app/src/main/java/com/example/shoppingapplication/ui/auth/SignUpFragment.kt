@@ -38,7 +38,7 @@ class SignUpFragment : Fragment() {
     private lateinit var signUpPassword: EditText
     private lateinit var auth: FirebaseAuth
 
-    private val viewOnClickListener = View.OnClickListener { view ->
+    private val onClickListener = View.OnClickListener { view ->
         when (view) {
             binding.signUpButton -> {
                 val email = signUpEmail.text.toString()
@@ -89,11 +89,26 @@ class SignUpFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         inits()
         disableSignUpButtonAtFirst()
-        signUpButtonFunctionality()
-        return binding.root
+        setListeners()
+    }
+
+    private fun inits() {
+        signUpUserName = binding.sinUpUserName
+        signUpEmail = binding.signUpEmailId
+        signUpPassword = binding.signUpPassword
+        signUpButton = binding.signUpButton
+        auth = FirebaseAuth.getInstance()
+    }
+
+    private fun setListeners() {
+        binding.signUpButton.setOnClickListener(onClickListener)
     }
 
     /**
@@ -125,23 +140,13 @@ class SignUpFragment : Fragment() {
 
     }
 
-    private fun inits() {
-        signUpUserName = binding.sinUpUserName
-        signUpEmail = binding.signUpEmailId
-        signUpPassword = binding.signUpPassword
-        signUpButton = binding.signUpButton
-        auth = FirebaseAuth.getInstance()
-    }
-
     /**
      * This will collect user name, email & password.
      * it will authenticate using firebase, if everything is correct,
      * it will render the log in fragment
      * @return Log In Fragment
      */
-    private fun signUpButtonFunctionality() {
-        signUpButton.setOnClickListener(viewOnClickListener)
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -42,6 +42,65 @@ class LogInFragment : Fragment() {
     private var _binding: FragmentLogInBinding? = null
     private val binding get() = _binding!!
 
+    private val onClickListener = View.OnClickListener setOnClickListener@{ view ->
+        when (view) {
+            binding.logInButton ->{
+                val email: String = logInEmail.text.toString()
+                val password: String = logInPassword.text.toString()
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    activity?.let { it1 ->
+                        DynamicToast.makeError(
+                            it1,
+                            "Please fill in both email and password fields to continue.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+                    return@setOnClickListener
+                }
+
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            val intent = Intent(activity, HomePageActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            val message = task.exception?.message ?: "An unknown error occurred."
+                            when {
+                                message.contains("no user record") -> {
+                                    activity?.let { it1 ->
+                                        DynamicToast.makeError(
+                                            it1,
+                                            "The email entered is not registered. Please sign up or try again with a registered email.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                                message.contains("password is invalid") -> {
+                                    activity?.let { it1 ->
+                                        DynamicToast.makeError(
+                                            it1,
+                                            "The password entered is incorrect. Please try again with the correct password.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                                else -> {
+                                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+    }
+
+
     private lateinit var logInButton: Button
     private lateinit var logInEmail: EditText
     private lateinit var logInPassword: EditText
@@ -57,11 +116,15 @@ class LogInFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentLogInBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         inits()
         gsoAndGoogleSignIn()
-        textLogIn()
         disableLogInButtonAtFirst()
-        return binding.root
+        setListeners()
     }
 
     private fun inits() {
@@ -71,6 +134,18 @@ class LogInFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         googleSignInImageView = binding.googleLogIn
     }
+
+    /**
+     * This will check email and password if both are not null,
+     * it will authenticate using firebase, if everything is correct,
+     * it will render the Home Activity.
+     * @return Home Page Activity
+     */
+    private fun setListeners() {
+        binding.logInButton.setOnClickListener(onClickListener)
+
+    }
+
 
     /**
      * This method will hide the login button until email and password are not filled
@@ -152,71 +227,6 @@ class LogInFragment : Fragment() {
             }
         }
     }
-
-    /**
-     * This will check email and password if both are not null,
-     * it will authenticate using firebase, if everything is correct,
-     * it will render the Home Activity.
-     * @return Home Page Activity
-     */
-    private fun textLogIn() {
-
-        logInButton.setOnClickListener {
-            val email: String = logInEmail.text.toString()
-            val password: String = logInPassword.text.toString()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                activity?.let { it1 ->
-                    DynamicToast.makeError(
-                        it1,
-                        "Please fill in both email and password fields to continue.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-                return@setOnClickListener
-            }
-
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener() { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-                        val intent = Intent(activity, HomePageActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        val message = task.exception?.message ?: "An unknown error occurred."
-                        when {
-                            message.contains("no user record") -> {
-                                activity?.let { it1 ->
-                                    DynamicToast.makeError(
-                                        it1,
-                                        "The email entered is not registered. Please sign up or try again with a registered email.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                            message.contains("password is invalid") -> {
-                                activity?.let { it1 ->
-                                    DynamicToast.makeError(
-                                        it1,
-                                        "The password entered is incorrect. Please try again with the correct password.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                            else -> {
-                                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
-
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

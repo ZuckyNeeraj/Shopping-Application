@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -35,8 +34,10 @@ private lateinit var drawerlayout: DrawerLayout
 private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 private lateinit var navigationView: NavigationView
 private lateinit var bottomNavView: BottomNavigationView
+@SuppressLint("StaticFieldLeak")
 private val productDisplayFrag = ProductDisplayFragment()
 private val cartFrag = AddToCartFragment()
+@SuppressLint("StaticFieldLeak")
 private val userDetailFrag = UserDetailsFragment()
 private val trackOrderFrag = TrackOrderFragment()
 

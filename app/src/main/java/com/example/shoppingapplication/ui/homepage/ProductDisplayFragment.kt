@@ -55,7 +55,7 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var filteredList: ArrayList<productsItem>
     private lateinit var reportImageViewButton: ImageView
 
-    private val viewOnClickListener = View.OnClickListener { view ->
+    private val onClickListener = View.OnClickListener { view ->
         when (view) {
             binding.reportButton -> {
                 // Create a new dialog
@@ -119,18 +119,40 @@ class ProductDisplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDisplayBinding.inflate(inflater, container, false)
-        inits()
-//        Toast.makeText(context, "OnCreateView Called", Toast.LENGTH_SHORT).show()
-        getDataFromFirebase()
-        searchFuntionality()
-        reportButtonClick()
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-//        Toast.makeText(context, "OnResume Called", Toast.LENGTH_SHORT).show()
+    /**
+     * Once the view is created assigning the menu resources image.
+     * also activating the drawer func() that is defined in the Home Page Activity.
+     * @return Menu Image, triggers drawer function
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val imageView = requireActivity().findViewById<ImageView>(R.id.hamburger_menu)
+        imageView.setImageResource(R.drawable.green_menu)
+        val homePageActivity= activity as HomePageActivity
+        homePageActivity.drawer_func()
+
+        inits()
+        getDataFromFirebase()
+        searchFuntionality()
+        setListeners()
     }
+
+
+    /**
+     * This method will initialize all the required resources.
+     * @return Initialize all the resources.
+     */
+    private fun inits(){
+        data = mutableListOf<productsItem>() as ArrayList<productsItem>
+        recyclerView = binding.rvToShowItems
+        adapter = MyAdapter(data)
+        searchView = binding.searchView
+        reportImageViewButton = binding.reportButton
+    }
+
+
     /**
      * This method will be triggered on clicking report Image.
      * A form will be opened that can take the issue of the user.
@@ -138,8 +160,8 @@ class ProductDisplayFragment : Fragment() {
      * User can verify it and take some actions
      * @return dialog box with form.
      */
-    private fun reportButtonClick() {
-        reportImageViewButton.setOnClickListener(viewOnClickListener)
+    private fun setListeners() {
+        reportImageViewButton.setOnClickListener(onClickListener)
     }
 
 
@@ -190,28 +212,8 @@ class ProductDisplayFragment : Fragment() {
 
     }
 
-    /**
-     * Once the view is created assigning the menu resources image.
-     * also activating the drawer func() that is defined in the Home Page Activity.
-     * @return Menu Image, triggers drawer function
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val imageView = requireActivity().findViewById<ImageView>(R.id.hamburger_menu)
-        imageView.setImageResource(R.drawable.green_menu)
-        val homePageActivity= activity as HomePageActivity
-        homePageActivity.drawer_func()
-    }
-    /**
-     * This method will initialize all the required resources.
-     * @return Initialize all the resources.
-     */
-    private fun inits(){
-        data = mutableListOf<productsItem>() as ArrayList<productsItem>
-        recyclerView = binding.rvToShowItems
-        adapter = MyAdapter(data)
-        searchView = binding.searchView
-        reportImageViewButton = binding.reportButton
-    }
+
+
 
     /**
      * Below two methods are for searching purpose.
@@ -243,7 +245,6 @@ class ProductDisplayFragment : Fragment() {
 
 
             if(filteredList.isEmpty()){
-//                Log.d("fatrahahai", "hello")
                 Toast.makeText(context, "No Data Found", Toast.LENGTH_SHORT).show()
             }else{
                 adapter.setFilteredList(filteredList)

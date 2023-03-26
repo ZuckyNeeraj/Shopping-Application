@@ -20,10 +20,21 @@ class DetailProductDisplayFragment : Fragment() {
 
     private var _binding: FragmentDetailProductDisplayBinding? = null
     private val binding get() = _binding!!
+    private lateinit var imageView: ImageView
+
+    private val onClickListener = View.OnClickListener { view ->
+        when (view) {
+            imageView ->{
+                // all the functionality that we want to achieve on click of buttonName
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.recyclerViewFrameLayout, ProductDisplayFragment())?.addToBackStack(null)
+                    ?.commit()
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDetailProductDisplayBinding.inflate(inflater, container, false)
-        displayDataFromProductDisplayFragment()
         return binding.root
     }
 
@@ -33,15 +44,20 @@ class DetailProductDisplayFragment : Fragment() {
      * @return Menu Image, replace the current fragment to product display fragment
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val imageView = requireActivity().findViewById<ImageView>(R.id.hamburger_menu)
-        imageView.setImageResource(R.drawable.green_go_back)
-
-        imageView.setOnClickListener{
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.recyclerViewFrameLayout, ProductDisplayFragment())?.addToBackStack(null)
-                ?.commit()
-        }
+        inits()
+        displayDataFromProductDisplayFragment()
+        setListeners()
     }
+
+    private fun inits(){
+        imageView = requireActivity().findViewById(R.id.hamburger_menu)
+        imageView.setImageResource(R.drawable.green_go_back)
+    }
+
+    private fun setListeners() {
+        imageView.setOnClickListener(onClickListener)
+    }
+
 
     /**
      * It will receive the data from the Product Display fragment.
