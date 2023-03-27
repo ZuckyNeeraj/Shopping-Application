@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.auth
+package com.example.shoppingapplication.login.view
 
 /**
  * This fragment will deal with the login of user.
@@ -27,7 +27,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.FragmentLogInBinding
-import com.example.shoppingapplication.ui.homepage.HomePageActivity
+import com.example.shoppingapplication.homePage.HomePageActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

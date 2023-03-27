@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.auth
+package com.example.shoppingapplication.auth.view
 
 /**
  * This is an auth activity.
@@ -8,23 +8,24 @@ package com.example.shoppingapplication.ui.auth
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.ActivityAuthBinding
-import com.example.shoppingapplication.ui.homepage.HomePageActivity
+import com.example.shoppingapplication.login.view.LogInFragment
+import com.example.shoppingapplication.signUp.view.SignUpFragment
+import com.example.shoppingapplication.homePage.HomePageActivity
 import com.google.firebase.auth.FirebaseAuth
-
-@SuppressLint("StaticFieldLeak")
-private lateinit var binding: ActivityAuthBinding
-private lateinit var auth: FirebaseAuth
-
 
 /**
  * This is an authentication activity.
  * If user is already logged in user will be redirected to Home page activity.
  * If not than it will render the Home page activity.
  */
+
+@SuppressLint("StaticFieldLeak")
+lateinit var binding: ActivityAuthBinding
+lateinit var auth: FirebaseAuth
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

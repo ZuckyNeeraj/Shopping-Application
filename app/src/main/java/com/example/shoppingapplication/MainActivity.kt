@@ -1,25 +1,16 @@
 package com.example.shoppingapplication
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import com.example.shoppingapplication.databinding.ActivityMainBinding
-import com.example.shoppingapplication.ui.auth.AuthActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import com.google.common.reflect.TypeToken
-import com.google.gson.Gson
+import com.example.shoppingapplication.auth.view.AuthActivity
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding: ActivityMainBinding

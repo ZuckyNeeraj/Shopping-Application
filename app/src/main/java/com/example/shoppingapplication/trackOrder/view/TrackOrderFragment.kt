@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.homepage
+package com.example.shoppingapplication.trackOrder.view
 
 /**
  * This is the product tracking fragment.

@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.homepage
+package com.example.shoppingapplication.addToCart.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings.Global.putString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.databinding.FragmentAddToCartBinding
 import com.example.shoppingapplication.repository.CartAdapter
+import com.example.shoppingapplication.displayProduct.view.ProductDisplayFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.common.reflect.TypeToken

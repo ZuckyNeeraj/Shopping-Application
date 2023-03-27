@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
 
     <application
         android:allowBackup="true"
@@ -16,20 +20,20 @@
 
 
         <activity
-            android:name="com.example.shoppingapplication.ui.auth.AuthActivity"
+            android:name="com.example.shoppingapplication.auth.view.AuthActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="MissingClass" />
         <activity
-            android:name="com.example.shoppingapplication.ui.homepage.HomePageActivity"
+            android:name="com.example.shoppingapplication.homePage.HomePageActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="MissingClass" />
 
-        <activity android:name=".ui.auth.LogInFragment"/>
-        <activity android:name=".ui.auth.SignUpFragment"/>
+        <activity android:name=".login.view.LogInFragment"/>
+        <activity android:name=".signUp.view.SignUpFragment"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"

@@ -1,29 +1,30 @@
-package com.example.shoppingapplication.ui.homepage
-
+package com.example.shoppingapplication.homePage
 /**
  * This is the home page activity that will be providing navigation feature.
  * As well as logout functionality is also added in this section.
  * @author Neeraj Mahapatra
  */
-
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppingapplication.R
+import com.example.shoppingapplication.addToCart.view.AddToCartFragment
 import com.example.shoppingapplication.databinding.ActivityHomePageBinding
+import com.example.shoppingapplication.displayProduct.view.ProductDisplayFragment
 import com.example.shoppingapplication.repository.NavigationImageAdapter
+import com.example.shoppingapplication.trackOrder.view.TrackOrderFragment
+import com.example.shoppingapplication.ui.homepage.*
+import com.example.shoppingapplication.userDetail.view.UserDetailsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.common.reflect.TypeToken
-import com.google.firebase.database.*
 import com.google.gson.Gson
 
 @SuppressLint("StaticFieldLeak")
@@ -36,6 +37,7 @@ private lateinit var navigationView: NavigationView
 private lateinit var bottomNavView: BottomNavigationView
 @SuppressLint("StaticFieldLeak")
 private val productDisplayFrag = ProductDisplayFragment()
+@SuppressLint("StaticFieldLeak")
 private val cartFrag = AddToCartFragment()
 @SuppressLint("StaticFieldLeak")
 private val userDetailFrag = UserDetailsFragment()
@@ -64,7 +66,7 @@ class HomePageActivity : AppCompatActivity() {
      */
     private fun initialCartNumberDisplay() {
         cartQuantities = mutableMapOf()
-        sharedPreferences = getSharedPreferences("my_shared_prefs", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("my_shared_prefs", MODE_PRIVATE)
         cartQuantities = sharedPreferences.getString("my_hashmap_key", "{}")?.let {
             Gson().fromJson(it, object : TypeToken<MutableMap<Int, Pair<String, Int>>>() {}.type)
         } ?: mutableMapOf()
@@ -222,4 +224,3 @@ class HomePageActivity : AppCompatActivity() {
             commit()
         }
 }
-

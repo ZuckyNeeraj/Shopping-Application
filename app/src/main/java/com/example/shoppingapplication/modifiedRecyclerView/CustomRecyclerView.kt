@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.modifiedRecyclerView
+package com.example.shoppingapplication.modifiedRecyclerView
 
 import android.content.Context
 import android.util.AttributeSet

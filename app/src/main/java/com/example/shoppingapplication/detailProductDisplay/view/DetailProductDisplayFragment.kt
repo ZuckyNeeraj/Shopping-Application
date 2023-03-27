@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.homepage
+package com.example.shoppingapplication.detailProductDisplay.view
 
 /**
  * This is the detail product display fragment.
@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.data.productsItem
 import com.example.shoppingapplication.databinding.FragmentDetailProductDisplayBinding
+import com.example.shoppingapplication.displayProduct.view.ProductDisplayFragment
 
 class DetailProductDisplayFragment : Fragment() {
 

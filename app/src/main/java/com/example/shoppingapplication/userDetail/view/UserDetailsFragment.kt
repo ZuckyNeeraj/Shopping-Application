@@ -1,4 +1,4 @@
-package com.example.shoppingapplication.ui.homepage
+package com.example.shoppingapplication.userDetail.view
 
 /**
  * This is the user details fragment.
@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.shoppingapplication.databinding.FragmentUserDetailsBinding
-import com.example.shoppingapplication.ui.auth.AuthActivity
+import com.example.shoppingapplication.auth.view.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class UserDetailsFragment : Fragment() {

@@ -1,11 +1,9 @@
-package com.example.shoppingapplication.ui.homepage
-
+package com.example.shoppingapplication.displayProduct.view
 /**
  * This fragment will used to display the product inside the fragment.
  * This will be also render inside Home Page Activity.
  * @author Neeraj Mahapatra
  */
-
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues
@@ -15,34 +13,29 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapplication.R
 import com.example.shoppingapplication.data.productsItem
 import com.example.shoppingapplication.databinding.FragmentProductDisplayBinding
 import com.example.shoppingapplication.repository.MyAdapter
+import com.example.shoppingapplication.detailProductDisplay.view.DetailProductDisplayFragment
+import com.example.shoppingapplication.homePage.HomePageActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import java.util.*
 import kotlin.collections.ArrayList
-import android.content.Context
-
-
-private var reportName: String = "Neeraj"
-private var reportDescription: String = "Desc"
 
 class ProductDisplayFragment : Fragment() {
 
@@ -54,6 +47,9 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var filteredList: ArrayList<productsItem>
     private lateinit var reportImageViewButton: ImageView
+
+    var reportName: String = "Neeraj"
+    var reportDescription: String = "Desc"
 
     private val onClickListener = View.OnClickListener { view ->
         when (view) {
@@ -221,7 +217,7 @@ class ProductDisplayFragment : Fragment() {
      * @return Required product lists based on query.
      */
     private fun searchFuntionality() {
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
