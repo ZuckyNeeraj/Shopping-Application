@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 class ProductDisplayFragment : Fragment() {
 
@@ -47,6 +48,7 @@ class ProductDisplayFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var filteredList: ArrayList<productsItem>
     private lateinit var reportImageViewButton: ImageView
+    private var isFoused = false
 
     var reportName: String = "Neeraj"
     var reportDescription: String = "Desc"
@@ -110,6 +112,10 @@ class ProductDisplayFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        searchView.clearFocus()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -208,15 +214,13 @@ class ProductDisplayFragment : Fragment() {
 
     }
 
-
-
-
     /**
      * Below two methods are for searching purpose.
      * Based on the input in the search view it will search and display the product list.
      * @return Required product lists based on query.
      */
     private fun searchFuntionality() {
+
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -226,22 +230,21 @@ class ProductDisplayFragment : Fragment() {
                 filterlist(newText)
                 return true
             }
-
         })
     }
 
     private fun filterlist(query: String?){
-        if(query!=null){
+        if(!query.isNullOrEmpty()){
             filteredList = ArrayList<productsItem>()
             for(i in data){
-                if(i.title?.lowercase(Locale.ROOT)?.contains(query) == true){
-                    filteredList.add(i)
-                }
+                if(i.title?.lowercase(Locale.ROOT)?.contains(query.lowercase(Locale.ROOT)) == true){
+                        filteredList.add(i)
+                    }
             }
 
 
             if(filteredList.isEmpty()){
-                Toast.makeText(context, "No Data Found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "No data Found", Toast.LENGTH_SHORT).show()
             }else{
                 adapter.setFilteredList(filteredList)
             }

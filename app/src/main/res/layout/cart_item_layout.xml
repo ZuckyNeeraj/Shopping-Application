@@ -36,7 +36,7 @@
         android:text="@string/delete"
         android:layout_marginStart="@dimen/density_independent_pixel_4dp"
         android:fontFamily="@font/roboto_condensed_regular"
-        android:textSize="@dimen/text_dimension_20sp"
+        android:textSize="@dimen/text_dimension_16sp"
         android:textStyle="bold"
         android:layout_marginEnd="@dimen/density_independent_pixel_10dp"
         android:textColor="@color/white"

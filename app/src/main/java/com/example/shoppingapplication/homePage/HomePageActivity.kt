@@ -20,7 +20,6 @@ import com.example.shoppingapplication.databinding.ActivityHomePageBinding
 import com.example.shoppingapplication.displayProduct.view.ProductDisplayFragment
 import com.example.shoppingapplication.repository.NavigationImageAdapter
 import com.example.shoppingapplication.trackOrder.view.TrackOrderFragment
-import com.example.shoppingapplication.ui.homepage.*
 import com.example.shoppingapplication.userDetail.view.UserDetailsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -209,6 +208,7 @@ class HomePageActivity : AppCompatActivity() {
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.recyclerViewFrameLayout, fragment)
+            addToBackStack(null)
             commit()
         }
 

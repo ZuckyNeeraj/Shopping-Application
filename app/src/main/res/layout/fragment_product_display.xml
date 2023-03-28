@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/density_independent_pixel_8dp"
-            android:queryHint="@string/search_text"
             android:iconifiedByDefault="false"
             android:background="@drawable/rounded_button" />
 
